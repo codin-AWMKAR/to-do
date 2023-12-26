@@ -1,0 +1,17 @@
+.home{
+    width:100%;
+    height:100vh;
+}
+.home h1{
+    font-size:60px;
+}
+.home-button{
+    background-color:#00A36C;
+    border-radius:10px;
+    color:white !important; 
+    font-weight:bold;
+    height:40px;
+    width:150px;
+    border:none;
+    outline:none;
+}
