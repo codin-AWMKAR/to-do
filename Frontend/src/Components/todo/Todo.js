@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import "./Todo.css"
+import "./Todo.css";
+import TodoCards from "./TodoCards";
 const Todo = () => {
   const [Inputs, setInputs] = useState({title:"",body:""});
   const [Array, setArray] = useState([]);
@@ -34,7 +35,21 @@ const show=()=>{
             
            
         </div>
-        <div className="todo-body"></div>
+        <div className="todo-body">
+          <div className="container">
+            <div className="row">
+               
+            {Array && Array.map((item, index) => (<div className='col-lg-3 col-8 mx-5 my-2'>
+              <TodoCards title={item.title} body={item.body}/>
+              </div>)
+            )}
+            
+            </div>
+            
+            
+           
+          </div>
+        </div>
         
     </div>
   )

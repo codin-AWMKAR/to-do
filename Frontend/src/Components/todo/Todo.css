@@ -28,3 +28,21 @@
     border:none;
     outline:none;
 }
+
+.todo-card{
+    border:1px solid black; 
+}
+.todo-card-p{
+    text-align:justify;
+    text-justify:inter-word;
+}
+.card-icons{
+    font-size:21px;
+    cursor:pointer;
+}
+.card-icon-head{
+cursor:pointer;
+}
+.card-icon-head:hover{
+ box-shadow:rgba(0,0,0,0.35) 0px 5px 15px;
+}
