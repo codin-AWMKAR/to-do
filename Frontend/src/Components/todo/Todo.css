@@ -1,0 +1,30 @@
+.todo{
+    width:100%;
+    min-height:100vh;
+    max-height:auto;
+}
+.todo-inputs{
+    width:600px;
+    border:none;
+    outline:none;
+
+}
+
+.todo-inputs-div{
+   border-radius:10px;
+   box-shadow: rgba(0,0,0,0.35) 0px 5px 15px;
+}
+
+#textarea{
+    display:none;
+}
+.home-btn{
+    background-color:#00A36C;
+    border-radius:10px;
+    color:white !important; 
+    font-weight:bold;
+    height:40px;
+    width:600px;
+    border:none;
+    outline:none;
+}
