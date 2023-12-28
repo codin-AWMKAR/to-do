@@ -3,7 +3,7 @@ import './Todo.css';
 import { MdDelete } from "react-icons/md";
 import { MdEditNote } from "react-icons/md";
 
-const TodoCards = ({title,body}) => {
+const TodoCards = ({title,body,id,delid,display}) => {
   return (
     <div className="p-3 todo-card">
     <div>
@@ -11,10 +11,14 @@ const TodoCards = ({title,body}) => {
       <p className='todo-card-p'>{body.split("",77)}...</p>
     </div>
     <div className='d-flex justify-content-around '>
-      <div className="d-flex justify-content-center align-items-center card-icon-head px-2 py-1">
+      <div className="d-flex justify-content-center align-items-center card-icon-head px-2 py-1" onClick={()=>{
+    display("block");
+   }}>
       <MdEditNote  className="card-icons"/>Edit
       </div>
-   <div className="d-flex justify-content-center align-items-center card-icon-head px-2 py-1 text-danger">
+   <div className="d-flex justify-content-center align-items-center card-icon-head px-2 py-1 text-danger " onClick={()=>{
+    delid(id);
+   }}>
     <MdDelete className="card-icons-del" />Delete
     </div> 
     </div>
