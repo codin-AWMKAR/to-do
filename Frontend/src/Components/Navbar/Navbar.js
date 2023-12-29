@@ -1,9 +1,18 @@
 import React from 'react';
 import "./Navbar.css";
 import { GiNotebook } from "react-icons/gi";
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {useSelector} from "react-redux";
+import {useDispatch} from 'react-redux'
+import{authActions} from "../../store/index";
 
 const Navbar = () => {
+  const isLoggedIn = useSelector((state)=>state.isLoggedIn);
+  const dispatch = useDispatch();
+  const logout =()=>{
+    sessionStorage.clear("id");
+    dispatch(authActions.logout());
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg">
@@ -19,7 +28,7 @@ const Navbar = () => {
               <li className="nav-item mx-2 ">
                 <Link className="nav-link active"  aria-current="page" to="/">Home</Link>
               </li>
-              <li className="nav-item mx-2 ">
+              {!isLoggedIn && (<> <li className="nav-item mx-2 ">
                 <Link className="nav-link active"  aria-current="page" to="/todom">TODOM</Link>
               </li>
               <li className="nav-item btn-nav mx-2">
@@ -27,11 +36,18 @@ const Navbar = () => {
               </li>
               <li className="nav-item btn-nav mx-2">
                 <Link className="nav-link active " aria-current="page" style={{color:"white"}} to="/signin">Sign In</Link>
+              </li></>)}
+              {isLoggedIn &&(<> 
+                <li className="nav-item mx-2 ">
+                <Link className="nav-link active"  aria-current="page" to="/todom">TODOM</Link>
               </li>
-              <li className="nav-item btn-nav mx-2">
-                <Link className="nav-link active " aria-current="page" style={{color:"white"}} to="/logout">Log Out</Link>
+              <li className="nav-item btn-nav mx-2" onClick={logout}>
+                <Link className="nav-link active " aria-current="page" style={{color:"white"}} to="/">Log Out</Link>
+                
               </li>
-              
+              </>)}
+             
+             
             </ul>
           </div>
         </div>
