@@ -1,15 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Todo.css";
 import TodoCards from "./TodoCards";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Update from './Update';
+// import {useSelector} from "react-redux";
+// import {useDispatch} from 'react-redux'
+// import{authActions} from "../../store/index";
+import axios from "axios";
+let id = sessionStorage.getItem("id");
 const Todo = () => {
   const [Inputs, setInputs] = useState({title:"",body:""});
   const [Array, setArray] = useState([]);
-const del = (id) =>{
-  Array.splice(id,"1")
-  setArray([...Array])
+  
+  
+const del = async(Cardid) =>{
+  await axios.delete(`http://localhost:1000/api/v2/deleteTask/${Cardid}`,{data:{id:id},}).then(()=>{
+    toast.success("Your task is deleted");
+  });
+ 
 }
 const show=()=>{
    document.getElementById("textarea").style.display ="block";
@@ -18,15 +27,25 @@ const show=()=>{
       const{name,value}= e.target;
       setInputs({...Inputs,[name]:value})
  }
- const submit = () => {
+ const submit = async() => {
   if (Inputs.title === "" || Inputs.body === "") {
     toast.error("Please Enter Body & Title");
   } else {
-    setArray([...Array, Inputs]);
-    setInputs({ title: "", body: "" });
-    toast.success("Your task is added");
-    toast.error("Please SignUp");
+    if(id){
+       await axios.post("http://localhost:1000/api/v2/addTask",{title:Inputs.title,body:Inputs.body,id:id}).then((response)=>{console.log(response)});
+      
+       setInputs({ title: "", body: "" });
+       toast.success("Your task is added");
+       
+    }
+    else{
+      setArray([...Array, Inputs]);
+      setInputs({ title: "", body: "" });
+      toast.success("Your task is added");
+      toast.error("Please SignUp");
+    }
   }
+  
 };
 
  const dis =(value) =>{
@@ -34,6 +53,14 @@ const show=()=>{
   document.getElementById("todo-update").style.display = value;
  }
  console.log(Array);
+ useEffect(() => {
+  const fetch = async() => {
+    await axios.get(`http://localhost:1000/api/v2/getTasks/${id}`).then((response)=>{
+      setArray(response.data.list);
+    })
+  }
+  fetch();
+}, [submit]);
   return (
     <>
     <div className="todo">
@@ -59,7 +86,7 @@ const show=()=>{
             <div className="row">
                
             {Array && Array.map((item, index) => (<div className='col-lg-3 col-8 mx-5 my-2' key={index}>
-              <TodoCards title={item.title} body={item.body} id={index} delid={del} display={dis}/>
+              <TodoCards title={item.title} body={item.body} id={item._id} delid={del} display={dis}/>
               </div>)
             )}
             
