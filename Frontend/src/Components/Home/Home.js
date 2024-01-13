@@ -8,7 +8,14 @@ const Home = () => {
       <div className="container d-flex justify-content-center align-items-center flex-column ">
         <h1 className='text-center'>
             
-        Organize Your Day<br/>Achieve More, Stay Productive!
+       
+        <Typewriter
+      options={{
+        strings: ['Organize Your Day<br/>Achieve More, Stay Productive!'],
+        autoStart: true,
+        loop: true,
+      }}
+    />
         </h1>
         <p className="text-center">
         Elevate efficiency and take charge of your day with our intuitive to-do app.<br/> Embrace simplicity, embrace accomplishment – your tasks, your triumphs.
