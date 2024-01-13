@@ -22,18 +22,21 @@ router.post("/addTask", async(req,res)=>{
 
 //update
 
-router.put("/updateTask/:id", async(req,res)=>{
+router.put("/updateTask/:id", async (req, res) => {
   try {
-   
-   const{title,body} = req.body;
-      const list = await List.findByIdAndUpdate(req.params.id,{title,body});
-      list.save().then(()=>res.status(200).json({message:"Task Updated"}));
-
-   
+    const { title, body } = req.body;
+    const list = await List.findByIdAndUpdate(req.params.id, { title, body });
+    if (!list) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+    await list.save();
+    res.status(200).json({ message: "Task Updated" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
+
 //delete
 router.delete("/deleteTask/:id", async(req,res)=>{
   try {

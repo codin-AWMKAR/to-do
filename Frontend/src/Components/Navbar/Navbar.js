@@ -28,24 +28,34 @@ const Navbar = () => {
               <li className="nav-item mx-2 ">
                 <Link className="nav-link active"  aria-current="page" to="/">Home</Link>
               </li>
-              {!isLoggedIn && (<> <li className="nav-item mx-2 ">
+              {!isLoggedIn && (
+              <> <li className="nav-item mx-2 ">
+                
                 <Link className="nav-link active"  aria-current="page" to="/todom">TODOM</Link>
               </li>
+              <div className="signupbtn d-flex">
               <li className="nav-item btn-nav mx-2">
-                <Link className="nav-link active " style={{color:"white"}} aria-current="page" to="/signup">Sign Up</Link>
+                <Link className="nav-link active btn-nav p-2 " style={{color:"white"}} aria-current="page" to="/signup">Sign Up</Link>
               </li>
+              </div>
+              <div className="signinbtn d-flex">
               <li className="nav-item btn-nav mx-2">
-                <Link className="nav-link active " aria-current="page" style={{color:"white"}} to="/signin">Sign In</Link>
-              </li></>)}
-              {isLoggedIn &&(<> 
+                <Link className="nav-link active btn-nav p-2  " aria-current="page" style={{color:"white"}} to="/signin">Sign In</Link>
+              </li>
+              </div></>)}
+              {isLoggedIn &&(<><div className="d-flex"> 
                 <li className="nav-item mx-2 ">
                 <Link className="nav-link active"  aria-current="page" to="/todom">TODOM</Link>
               </li>
+              </div>
+              <div className="d-flex">
               <li className="nav-item btn-nav mx-2" onClick={logout}>
                 <Link className="nav-link active " aria-current="page" style={{color:"white"}} to="/">Log Out</Link>
                 
               </li>
-              </>)}
+              </div>
+              
+             </>)}
              
              
             </ul>
