@@ -5,12 +5,18 @@ import {Link} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {useDispatch} from 'react-redux'
 import{authActions} from "../../store/index";
+import { useState } from 'react';
+
+
+
 
 const Navbar = () => {
+ 
   const isLoggedIn = useSelector((state)=>state.isLoggedIn);
   const dispatch = useDispatch();
   const logout =()=>{
-    sessionStorage.clear("id");
+   
+    sessionStorage.clear();
     dispatch(authActions.logout());
   }
   return (
@@ -50,7 +56,7 @@ const Navbar = () => {
               </div>
               <div className="d-flex">
               <li className="nav-item btn-nav mx-2" onClick={logout}>
-                <Link className="nav-link active " aria-current="page" style={{color:"white"}} to="/">Log Out</Link>
+                <Link className="nav-link active p-2 " aria-current="page" style={{color:"white"}} to="/">Log Out</Link>
                 
               </li>
               </div>

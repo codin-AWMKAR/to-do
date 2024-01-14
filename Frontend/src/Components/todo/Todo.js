@@ -8,6 +8,7 @@ import axios from "axios";
 
 let toUpdateArray = [];
 let id = sessionStorage.getItem("id");
+console.log(id);
 
 const Todo = () => {
   const [Inputs, setInputs] = useState({ title: "", body: "" });
@@ -43,7 +44,7 @@ const Todo = () => {
         setArray([...Array, Inputs]);
         setInputs({ title: "", body: "" });
         toast.success("Your task is added");
-        toast.error("Please SignUp");
+        
       }
     }
   };
@@ -56,6 +57,7 @@ const Todo = () => {
   useEffect(() => {
     if (id) {
       const fetch = async () => {
+        
         await axios.get(`http://localhost:1000/api/v2/getTasks/${id}`).then((response) => {
           setArray(response.data.list);
         });
@@ -90,7 +92,7 @@ const Todo = () => {
           <div className="container">
             <div className="row">
               {Array && Array.map((item, index) => (
-                <div className='col-lg-3 col-11 mx-lg-5 mx-3 my-2' key={index}>
+                <div className='col-lg-3 col-11 mx-lg-5 my-2' key={index}>
                   <TodoCards
                     title={item.title}
                     body={item.body}

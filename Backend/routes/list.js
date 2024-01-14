@@ -3,22 +3,23 @@ const User = require("../models/user");
 const List = require ("../models/list");
 const list = require("../models/list");
 //Create
-router.post("/addTask", async(req,res)=>{
-   try {
-    const {title,body,id} = req.body;
-    const  existingUser = await User.findById(id);
-    if(existingUser){
-        const list = new List({title,body,user: existingUser});
-        await list.save().then(()=>{
-            res.status(200).json({list})
-        });
-        existingUser.list.push(list);
-        existingUser.save();
+router.post("/addTask", async (req, res) => {
+  try {
+    const { title, body, id } = req.body;
+    const existingUser = await User.findById(id);
+    if (existingUser) {
+      const list = new List({ title, body, user: existingUser });
+      await list.save();
+      existingUser.list.push(list);
+      await existingUser.save();
+      res.status(200).json({ list });
     }
-   } catch (error) {
-     console.log(error);
-   }
-})
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 
 //update
 
@@ -38,19 +39,20 @@ router.put("/updateTask/:id", async (req, res) => {
 });
 
 //delete
-router.delete("/deleteTask/:id", async(req,res)=>{
+router.delete("/deleteTask/:id", async (req, res) => {
   try {
-   const {id} = req.body;
-   const  existingUser = await User.findByIdAndUpdate(id,{$pull:{list:req.params.id} });
-   if(existingUser){
-       await List.findByIdAndDelete(req.params.id).then(()=>res.status(200).json({message:"Task Deleted"}));
-     
-
-   }
+    const { id } = req.body;
+    const existingUser = await User.findByIdAndUpdate(id, { $pull: { list: req.params.id } });
+    if (existingUser) {
+      await List.findByIdAndDelete(req.params.id);
+      res.status(200).json({ message: "Task Deleted" });
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
+
 
 //getTask
 router.get("/getTasks/:id",async(req,res)=>{

@@ -21,16 +21,25 @@ const SignIn = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:1000/api/v1/signin', Inputs);
-      sessionStorage.setItem("id",response.data.others._id);
-           dispatch(authActions.login())
-      history("/todom");
-      
+        const response = await axios.post('http://localhost:1000/api/v1/signin', Inputs);
+
+        if (response.data.message) {
+            // Handle error messages, such as incorrect password or sign-up required
+            toast.error(response.data.message);
+        } else {
+            // Handle successful login
+            console.log(response.data.others._id)
+            sessionStorage.setItem("id", response.data.others._id);
+            // sessionStorage.clear();
+            dispatch(authActions.login());
+            history("/todom");
+        }
     } catch (error) {
-      console.error('Error during registration:', error);
-      toast.error('An error occurred during registration.');
+        console.error('Error during login:', error);
+        toast.error('An error occurred during login.');
     }
-  };
+};
+
   return (
     <div className="signup">
       <ToastContainer/>

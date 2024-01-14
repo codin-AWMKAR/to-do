@@ -19,8 +19,7 @@ router.post("/register",async (req,res) =>
         })
     }
 });
-
-//SIGN IN
+// SIGN IN
 router.post("/signin", async (req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email });
@@ -32,14 +31,12 @@ router.post("/signin", async (req, res) => {
         }
 
         const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
-        
-        if (isPasswordCorrect) {
+
+        if (!isPasswordCorrect) {
             return res.status(200).json({
                 message: "Please Enter Correct Password"
             });
         }
-        // console.log('Entered Password:', password);
-        // console.log('Stored Password:', user.password);
 
         const { password, ...others } = user._doc;
         res.status(200).json({
@@ -51,6 +48,7 @@ router.post("/signin", async (req, res) => {
         });
     }
 });
+
 
 
 
