@@ -4,6 +4,12 @@ const cors = require ("cors")
 require("./conn/conn");
 const auth = require("./routes/auth");
 const list = require("./routes/list");
+const path = require("path");
+
+app.get("/", (req, res) => {
+    app.use(express.static(path.resolve(__dirname, "Frontend", "build")));
+    res.sendFile(path.resolve(__dirname, "Frontend", "build", "index.html"));
+  });
 app.use(express.json());
 app.use(cors())
 app.get("/",(req,res)=>{
