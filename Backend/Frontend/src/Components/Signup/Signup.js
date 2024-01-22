@@ -18,7 +18,7 @@ const Signup = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${window.location.origin}/api/v1/register`, Inputs);
+      const response = await axios.post(`http://localhost:1000/api/v1/register`, Inputs);
       if (response.data.message === 'User Already Exists') {
         toast.error(response.data.message);
       } else {
