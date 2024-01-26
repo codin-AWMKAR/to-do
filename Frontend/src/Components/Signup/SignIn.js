@@ -21,7 +21,7 @@ const SignIn = () => {
   const submit = async (e) => {
     e.preventDefault();
     try {
-        const response = await axios.post(`${windows.location.origin}/api/v1/signin`, Inputs);
+        const response = await axios.post(`http://localhost:1000/api/v1/signin`, Inputs);
 
         if (response.data.message) {
             // Handle error messages, such as incorrect password or sign-up required

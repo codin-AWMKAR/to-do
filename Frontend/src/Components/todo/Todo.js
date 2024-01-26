@@ -16,7 +16,7 @@ const Todo = () => {
 
   const del = async (Cardid) => {
     if (id) {
-      await axios.delete(`${windows.location.origin}/api/v2/deleteTask/${Cardid}`, { data: { id: id }, }).then(() => {
+      await axios.delete(`http://localhost:1000/api/v2/deleteTask/${Cardid}`, { data: { id: id }, }).then(() => {
         toast.success("Your task is deleted");
       });
     }
@@ -36,7 +36,7 @@ const Todo = () => {
       toast.error("Please Enter Body & Title");
     } else {
       if (id) {
-        await axios.post(`${windows.location.origin}/api/v2/addTask`, { title: Inputs.title, body: Inputs.body, id: id }).then((response) => { console.log(response) });
+        await axios.post(`http://localhost:1000/api/v2/addTask`, { title: Inputs.title, body: Inputs.body, id: id }).then((response) => { console.log(response) });
 
         setInputs({ title: "", body: "" });
         toast.success("Your task is added");
@@ -58,7 +58,7 @@ const Todo = () => {
     if (id) {
       const fetch = async () => {
         
-        await axios.get(`${windows.location.origin}/api/v2/getTasks/${id}`).then((response) => {
+        await axios.get(`http://localhost:1000/api/v2/getTasks/${id}`).then((response) => {
           setArray(response.data.list);
         });
       };
